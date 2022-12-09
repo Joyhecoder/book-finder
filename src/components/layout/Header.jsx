@@ -16,6 +16,15 @@ import Button from '@mui/material/Button';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 
+import { createTheme, ThemeProvider } from '@mui/material';
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'chilanka',
+      'cursive'
+    ].join(','),
+  },});
+
 const drawerWidth = 240;
 const navItems = ['Home', 'Search', 'Favorites'];
 
@@ -29,25 +38,25 @@ function Header(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Read your Heart
+      <Typography variant="h5" sx={{ my: 2 }} style={{color: "#b2967d"}}>
+      Read With Your Heart
       </Typography>
       <Divider />
 
       {/* this is for the small screen nav bar */}
       <List>
-        <Link href="/" underline="none" >
+        <Link href="/" underline="none" style={{color: "#b2967d"}}>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={"Home"} />
             </ListItemButton>
             
         </Link>
-        <Link href="/search" underline="none" >
+        <Link href="/search" underline="none" style={{color: "#b2967d"}}>
         <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={"Book Search"} />
             </ListItemButton>
         </Link>
-        <Link href="/favorites" underline="none" >
+        <Link href="/favorites" underline="none" style={{color: "#b2967d"}}>
         <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={"Favorites"} />
             </ListItemButton>
@@ -59,6 +68,7 @@ function Header(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
+    <ThemeProvider theme={theme}>
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav" style={{ background: '#d5bdaf'}}>
         <Toolbar>
@@ -76,7 +86,7 @@ function Header(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Read Your Heart
+            Read With Your Heart
           </Typography>
           <Box  sx={{ display: { xs: 'none', sm: 'block' } }}>
             <Button component={ReactRouterLink} to="/" key={"Home"} sx={{ color: '#fff' }}>
@@ -114,6 +124,7 @@ function Header(props) {
        
       </Box>
     </Box>
+    </ThemeProvider>
   );
 }
 
