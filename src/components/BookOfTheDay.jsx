@@ -1,5 +1,7 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect, Component} from 'react'
 import { Box } from '@mui/system';
+import Calendar from 'react-calendar';
+
 
 
 
@@ -29,17 +31,24 @@ const BookOfTheDay = () => {
     useEffect(() => {
   
     }, [])
+
+ 
+
+    
   return (
     <>
     <ThemeProvider theme={theme}>
+        {/* Quiz section */}
         <Box className="container" sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}} >
             
             <Box className='quiz' sx={{ background: '#F5EBE0', width: 1/2}}>
-                <Typography variant="h4" align="center" sx={{ mt: '2rem'}}>Take a quick quiz</Typography>
-                
-                <Typography variant="h4" align="center">get your Book of the Day</Typography>
+                <Typography variant="h4" align="center" sx={{ mt: '2rem'}}>Reading Calendar</Typography>
+            
             </Box>
             
+
+        {/* Book Display section */}
+
             <Box className="showABook" sx={{ background: '#EDEDE9', width: 1/2}}>
                 <Typography variant="h4" align="center" sx={{ mt: '2rem'}}>This is where to display a book</Typography>
             </Box>
