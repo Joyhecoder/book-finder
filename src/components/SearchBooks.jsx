@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -7,6 +7,10 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
 
 import { createTheme, ThemeProvider } from '@mui/material';
 const theme = createTheme({
@@ -18,10 +22,33 @@ const theme = createTheme({
   },});
 
 const SearchBooks = () => {
-    const [bookType, setBookType] = React.useState('');
+    const [bookType, setBookType] = useState('');
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
 
   const handleChange = (event) => {
     setBookType(event.target.value);
+  }
+
+  const handleTitle = (e) =>{
+    e.preventDefault()
+    setTitle(e.target.value)
+    console.log('title', title)
+  }
+
+  const handleAuthor = (e) => {
+    e.preventDefault()
+    setAuthor(e.target.value)
+    console.log(('author', author));
+  }
+
+  const handleSeries = (e) => {
+    e.preventDefault()
+    setAuthor(e.target.value)
+  }
+
+  const handleSubmit = (e) =>{
+
   }
     
   return (
@@ -57,11 +84,20 @@ const SearchBooks = () => {
 
                         <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' },
                         }} noValidate autoComplete="off">
-                            <TextField id="title" label="Title" variant="outlined" />
-                            <TextField id="author" label="Author" variant="outlined" />
-                            <TextField id="series" label="Series" variant="outlined" />
+                            <TextField id="title" label="Title" variant="outlined" onChange={e=>handleTitle(e)} />
+                            <TextField id="author" label="Author" variant="outlined" onChange={e=>handleAuthor(e)} />
+                            <TextField id="series" label="Series" variant="outlined" onChange={e=>handleSeries(e)} />
                         </Box>
                      </Box>
+
+                     <Stack spacing={2} direction="row" sx={{ ml: '3rem', minWidth: 150}} justifyContent="center" > 
+                        <Button variant="contained" style={{
+                            backgroundColor: "#D5BDAF",
+                            padding: "10px 20px",
+                            fontSize: "18px",
+                            fontWeight: "bold"
+                        }} onClick={e=>handleSubmit(e)}>Submit</Button>
+                    </Stack>
                 </Grid>
             
 
