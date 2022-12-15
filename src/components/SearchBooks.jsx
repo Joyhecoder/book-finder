@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 
 
 import { createTheme, ThemeProvider } from '@mui/material';
@@ -25,6 +26,8 @@ const SearchBooks = () => {
     const [bookType, setBookType] = useState('');
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
+    const [series, setSeries] = useState('')
+    const [error, setError] = useState(false)
 
   const handleChange = (event) => {
     setBookType(event.target.value);
@@ -44,11 +47,15 @@ const SearchBooks = () => {
 
   const handleSeries = (e) => {
     e.preventDefault()
-    setAuthor(e.target.value)
+    setSeries(e.target.value)
   }
 
   const handleSubmit = (e) =>{
-
+    e.preventDefault()
+    if(!author){
+        setError(true)
+    }
+   
   }
     
   return (
@@ -85,8 +92,8 @@ const SearchBooks = () => {
                         <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' },
                         }} noValidate autoComplete="off">
                             <TextField id="title" label="Title" variant="outlined" onChange={e=>handleTitle(e)} />
-                            <TextField id="author" label="Author" variant="outlined" onChange={e=>handleAuthor(e)} />
-                            <TextField id="series" label="Series" variant="outlined" onChange={e=>handleSeries(e)} />
+                            <TextField id="author" label="Author" variant="outlined" required onChange={e=>handleAuthor(e)} />
+                            <TextField id="series" label="Series" variant="outlined" helperText="" onChange={e=>handleSeries(e)} />
                         </Box>
                      </Box>
 
@@ -98,6 +105,15 @@ const SearchBooks = () => {
                             fontWeight: "bold"
                         }} onClick={e=>handleSubmit(e)}>Submit</Button>
                     </Stack>
+
+                    {/* if author is empty, display error message */}
+                    {error ? <Stack sx={{ width: '100%', minWidth: 150, m: '3rem' }} spacing={2}>
+                                <Alert variant="filled" severity="error">
+                                    Please give an author!
+                                </Alert>
+                            
+                            </Stack> 
+                            : <></>}
                 </Grid>
             
 
