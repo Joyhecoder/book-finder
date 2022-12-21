@@ -80,7 +80,9 @@ const SearchBooks = () => {
         method: 'GET',
         url: 'https://book-finder1.p.rapidapi.com/api/search',
         params: {
+          title: title,
           author: author,
+          book_type: bookType,
           lexile_min: '600',
           lexile_max: '800',
           results_per_page: '25',
@@ -94,68 +96,18 @@ const SearchBooks = () => {
 
       axios.request(options).then(function (response) {
         console.log(response.data);
+        console.log(response.data.results[2].awards);
     }).catch(function (error) {
         console.error(error);
     });
     //!only have author info
     
-   //have author and title
+   //!have author and title
 
    //have author title and book type
   }
 
-//   useEffect(() => {
 
-    // const fetchBook = async () => {
-
-    //     let authorArr = author.split(" ")
-    //     // console.log(authorArr);
-    //     let fetchAuthor = authorArr.join("%20")
-    //     console.log(fetchAuthor)
-    
-    //     let titleArr = title.split(" ")
-    //     let fetchTitle = titleArr.join("%20")
-    //     // console.log(fetchTitle);
-    
-    //     const options = {
-    //         method: 'GET',
-    //         url: 'https://book-finder1.p.rapidapi.com/api/search',
-    //         params: {
-    //           author: author,
-    //           lexile_min: '600',
-    //           lexile_max: '800',
-    //           results_per_page: '25',
-    //           page: '1'
-    //         },
-    //         headers: {
-    //           'X-RapidAPI-Key': 'a6c84714aamshd7312f736a5f530p1a827bjsn8c619e6200a6',
-    //           'X-RapidAPI-Host': 'book-finder1.p.rapidapi.com'
-    //         }
-    //       };
-    
-    //       axios.request(options).then(function (response) {
-    //         console.log(response.data);
-    //     }).catch(function (error) {
-    //         console.error(error);
-    //     });
-    //     //!only have author info
-        
-    //    //have author and title
-    
-    //    //have author title and book type
-    //   }
-
-
-
-//    fetchBook()
-    
-
-
-//   }, [fetch])
-
- 
-  
-  
     
   return (
     <>
@@ -221,6 +173,7 @@ const SearchBooks = () => {
                 <Grid className="bookDisplay-section" item xs={8}>
                     <Box>
                         This is where the book is displayed
+                        <img src="https://ia802605.us.archive.org/view_archive.php?archive=/18/items/olcovers43/olcovers43-L.zip&file=433039-L.jpg" alt="" />
                     </Box>
 
                 </Grid>
