@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -11,6 +11,9 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import axios from "axios"
+
+
 
 
 import { createTheme, ThemeProvider } from '@mui/material';
@@ -26,8 +29,9 @@ const SearchBooks = () => {
     const [bookType, setBookType] = useState('');
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
-    const [series, setSeries] = useState('')
+    // const [series, setSeries] = useState('')
     const [error, setError] = useState(false)
+    const [fetch, setFetch] = useState(false)
 
   const handleChange = (event) => {
     setBookType(event.target.value);
@@ -45,18 +49,113 @@ const SearchBooks = () => {
     console.log(('author', author));
   }
 
-  const handleSeries = (e) => {
-    e.preventDefault()
-    setSeries(e.target.value)
-  }
+//   const handleSeries = (e) => {
+//     e.preventDefault()
+//     setSeries(e.target.value)
+//   }
 
   const handleSubmit = (e) =>{
     e.preventDefault()
     if(!author){
         setError(true)
+    }else{
+        setFetch(true)
+        setFetch(false)
     }
-   
+    fetchBook()
   }
+
+  const fetchBook = async () => {
+
+    let authorArr = author.split(" ")
+    // console.log(authorArr);
+    let fetchAuthor = authorArr.join("%20")
+    console.log(fetchAuthor)
+
+    let titleArr = title.split(" ")
+    let fetchTitle = titleArr.join("%20")
+    // console.log(fetchTitle);
+
+    const options = {
+        method: 'GET',
+        url: 'https://book-finder1.p.rapidapi.com/api/search',
+        params: {
+          author: author,
+          lexile_min: '600',
+          lexile_max: '800',
+          results_per_page: '25',
+          page: '1'
+        },
+        headers: {
+          'X-RapidAPI-Key': 'a6c84714aamshd7312f736a5f530p1a827bjsn8c619e6200a6',
+          'X-RapidAPI-Host': 'book-finder1.p.rapidapi.com'
+        }
+      };
+
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+    //!only have author info
+    
+   //have author and title
+
+   //have author title and book type
+  }
+
+//   useEffect(() => {
+
+    // const fetchBook = async () => {
+
+    //     let authorArr = author.split(" ")
+    //     // console.log(authorArr);
+    //     let fetchAuthor = authorArr.join("%20")
+    //     console.log(fetchAuthor)
+    
+    //     let titleArr = title.split(" ")
+    //     let fetchTitle = titleArr.join("%20")
+    //     // console.log(fetchTitle);
+    
+    //     const options = {
+    //         method: 'GET',
+    //         url: 'https://book-finder1.p.rapidapi.com/api/search',
+    //         params: {
+    //           author: author,
+    //           lexile_min: '600',
+    //           lexile_max: '800',
+    //           results_per_page: '25',
+    //           page: '1'
+    //         },
+    //         headers: {
+    //           'X-RapidAPI-Key': 'a6c84714aamshd7312f736a5f530p1a827bjsn8c619e6200a6',
+    //           'X-RapidAPI-Host': 'book-finder1.p.rapidapi.com'
+    //         }
+    //       };
+    
+    //       axios.request(options).then(function (response) {
+    //         console.log(response.data);
+    //     }).catch(function (error) {
+    //         console.error(error);
+    //     });
+    //     //!only have author info
+        
+    //    //have author and title
+    
+    //    //have author title and book type
+    //   }
+
+
+
+//    fetchBook()
+    
+
+
+//   }, [fetch])
+
+ 
+  
+  
     
   return (
     <>
@@ -87,13 +186,13 @@ const SearchBooks = () => {
                     <br />
                     <br />
                     <Box className="title-author-series-section" sx={{ ml: '3rem', minWidth: 150}}>
-                        <Typography variant="h6">Please type in at least a Book's title, author or series for better search. </Typography>
+                        <Typography variant="h6">Author name is required! </Typography>
 
                         <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' },
                         }} noValidate autoComplete="off">
                             <TextField id="title" label="Title" variant="outlined" onChange={e=>handleTitle(e)} />
                             <TextField id="author" label="Author" variant="outlined" required onChange={e=>handleAuthor(e)} />
-                            <TextField id="series" label="Series" variant="outlined" helperText="" onChange={e=>handleSeries(e)} />
+                            {/* <TextField id="series" label="Series" variant="outlined" helperText="" onChange={e=>handleSeries(e)} /> */}
                         </Box>
                      </Box>
 
