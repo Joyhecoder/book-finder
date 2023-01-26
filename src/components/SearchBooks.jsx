@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BookCard from './BookCard'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -80,9 +81,9 @@ const SearchBooks = () => {
         method: 'GET',
         url: 'https://book-finder1.p.rapidapi.com/api/search',
         params: {
-          title: title,
+        //   title: title,
           author: author,
-          book_type: bookType,
+        //   book_type: bookType,
           lexile_min: '600',
           lexile_max: '800',
           results_per_page: '25',
@@ -113,7 +114,7 @@ const SearchBooks = () => {
     <>
     <ThemeProvider theme={theme}>
         <Box xs={4} >
-            <Grid container spacing={2} style={{display: 'flexbox', flexwrap: 'wrap'}}>
+            <Box container spacing={2} style={{display: 'flexbox', flexWrap: 'wrap'}}>
 
                 {/* book Search section */}
                 <Grid className="bookSearch-input" item xs={4} >
@@ -171,13 +172,19 @@ const SearchBooks = () => {
 
                 {/* Book display section */}
                 <Grid className="bookDisplay-section" item xs={8}>
-                    <Box>
-                        This is where the book is displayed
-                        <img src="https://ia802605.us.archive.org/view_archive.php?archive=/18/items/olcovers43/olcovers43-L.zip&file=433039-L.jpg" alt="" />
-                    </Box>
+                    {/* <Box className='bookDisplay-section' sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+                        <Box className='cover-title-author'>
+                            This is where the book is displayed
+                            <img src="https://ia802605.us.archive.org/view_archive.php?archive=/18/items/olcovers43/olcovers43-L.zip&file=433039-L.jpg" alt="" />
+                        </Box>
 
+                        <Box className='summary-award-cate-esl'>
+                            Summary section
+                        </Box>
+                    </Box> */}
+                    
                 </Grid>
-            </Grid>
+            </Box>
         </Box>
     </ThemeProvider>
     
