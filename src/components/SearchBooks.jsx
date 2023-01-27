@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import BookCard from './BookCard'
+import React, { useState } from 'react';
+// import BookCard from './BookCard'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -22,16 +22,16 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+// import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { createTheme, ThemeProvider } from '@mui/material';
-import { RestorePageRounded } from '@mui/icons-material';
+// import { RestorePageRounded } from '@mui/icons-material';
 const theme = createTheme({
   typography: {
     fontFamily: [
@@ -202,24 +202,24 @@ const SearchBooks = () => {
                             : <></>}
                 </Grid>
             
-
+                <br />
 
                 {/* Book display section */}
               
-                <Grid className="bookDisplay-section" item xs={8} sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-                
+                <Grid className="bookDisplay-section" item xs={8} sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+                <br/>
                 {bookSearchData.length === 0 ? <>No book result yet! </>
                 :
                 <>
                 {bookSearchData.map(book => {
                   return (
                     <Card sx={{ maxWidth: 345 }}>
-                    <CardHeader title={book.title} subheader="September 14, 2016"/>
+                    <CardHeader title={book.title} subheader={book.authors}/>
                     <CardMedia
                       component="img"
                       height="494"
-                      image="https://covers.openlibrary.org/b/isbn/9781434225061-M.jpg" 
-                      alt="title"
+                      image ={`https://covers.openlibrary.org/b/isbn/${book.canonical_isbn}-M.jpg`}
+                      alt={`No book cover picture available for ${book.title}`}
                     />
                     <CardContent>
                       <Typography variant="body2" color="text.secondary">
@@ -241,26 +241,24 @@ const SearchBooks = () => {
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                       <CardContent>
-                        <Typography paragraph>Category:  respond.categories[0]</Typography>
+                        <Typography paragraph>Category: {book.categories}</Typography>
                                           
-                        <Typography paragraph>Language: respond.language </Typography>
+                        <Typography paragraph>Language: {book.language.charAt(0).toUpperCase() + book.language.slice(1)} </Typography>
   
-                        <Typography paragraph>Is this book recommended for English Language Learner?</Typography>
-                        <Typography paragraph>
-                          english_language_learner true || false
-                        </Typography>
+                        <Typography paragraph>Is this book recommended for English Language Learner? &nbsp;{book.english_language_learner ? "Yes" : "No"} </Typography>
                         
                         <Typography>
                           Awards winning: 
                         </Typography>
                         <Typography paragraph>
-                          awards
+                          {book.awards.length === 0 ? "No award winning for this book" : book.awards}
                         </Typography>
                       </CardContent>
                     </Collapse>
                   </Card>
                   )
                 })}
+                 <br />
                 </>
                 
                 
