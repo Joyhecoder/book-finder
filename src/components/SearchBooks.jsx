@@ -30,6 +30,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+
+import Pagination from '@mui/material/Pagination';
+
+
+
 import { createTheme, ThemeProvider } from '@mui/material';
 // import { RestorePageRounded } from '@mui/icons-material';
 const theme = createTheme({
@@ -140,7 +145,15 @@ const SearchBooks = () => {
 
   const [expanded, setExpanded] = React.useState(false);
   
-  const handleExpandClick = () => {
+  
+  const handleExpandClick = (e) => {
+    console.log("handle expand value", e)
+    console.log("handle expand id", e.target.id)
+    bookSearchData.map(book=>{
+      if(book.canonical_isbn == e.target.id){
+     
+      }
+    })
     setExpanded(!expanded);
   };
     
@@ -205,15 +218,16 @@ const SearchBooks = () => {
                 <br />
 
                 {/* Book display section */}
-              
+               
                 <Grid className="bookDisplay-section" item xs={8} sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                 <br/>
                 {bookSearchData.length === 0 ? <>No book result yet! </>
                 :
                 <>
+                
                 {bookSearchData.map(book => {
                   return (
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{ maxWidth: 345, mt:"2rem" }}>
                     <CardHeader title={book.title} subheader={book.authors}/>
                     <CardMedia
                       component="img"
@@ -231,12 +245,12 @@ const SearchBooks = () => {
                         <FavoriteIcon />
                       </IconButton>
                       <ExpandMore
-                        expand={expanded}
-                        onClick={handleExpandClick}
+                        expand={expanded}                       
+                        onClick={e=>handleExpandClick(e)}
                         aria-expanded={expanded}
                         aria-label="show more"
                       >
-                        <ExpandMoreIcon />
+                        <ExpandMoreIcon id = {book.canonical_isbn} />
                       </ExpandMore>
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -259,15 +273,13 @@ const SearchBooks = () => {
                   )
                 })}
                  <br />
+                    
                 </>
-                
-                
+                 
                 }
-                
-               
-                    
-                    
+                   
                 </Grid>
+               
             </Box>
         </Box>
     </ThemeProvider>
