@@ -144,17 +144,23 @@ const SearchBooks = () => {
   console.log(bookSearchData);
 
   const [expanded, setExpanded] = React.useState(false);
+  const [selectedId, setSelectedId] = useState(-1);
   
   
-  const handleExpandClick = (e) => {
-    console.log("handle expand value", e)
-    console.log("handle expand id", e.target.id)
-    bookSearchData.map(book=>{
-      if(book.canonical_isbn == e.target.id){
+  const handleExpandClick = (orderId) => {
+    // console.log("handle expand value", e)
+    // console.log("handle expand id", e.target.id)
+    // bookSearchData.map(book=>{
+    //   if(book.canonical_isbn == e.target.id){
      
-      }
-    })
-    setExpanded(!expanded);
+    //   }
+    // })
+    if(selectedId === orderId){
+      setSelectedId(-1)
+    }else{
+      setSelectedId(orderId)
+    }
+    // setExpanded(!expanded);
   };
     
   return (
@@ -227,7 +233,7 @@ const SearchBooks = () => {
                 
                 {bookSearchData.map(book => {
                   return (
-                    <Card sx={{ maxWidth: 345, mt:"2rem" }}>
+                    <Card key={book.canonical_isbn} sx={{ maxWidth: 345, mt:"2rem" }}>
                     <CardHeader title={book.title} subheader={book.authors}/>
                     <CardMedia
                       component="img"
@@ -246,14 +252,14 @@ const SearchBooks = () => {
                       </IconButton>
                       <ExpandMore
                         expand={expanded}                       
-                        onClick={e=>handleExpandClick(e)}
+                        onClick={()=>handleExpandClick(book.canonical_isbn)}
                         aria-expanded={expanded}
                         aria-label="show more"
                       >
                         <ExpandMoreIcon id = {book.canonical_isbn} />
                       </ExpandMore>
                     </CardActions>
-                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <Collapse in={book.canonical_isbn === selectedId ? true : false} timeout="auto" unmountOnExit>
                       <CardContent>
                         <Typography paragraph>Category: {book.categories}</Typography>
                                           
