@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import BookCard from './BookCard'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -22,13 +21,10 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-// import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 import Pagination from '@mui/material/Pagination';
@@ -36,7 +32,6 @@ import Pagination from '@mui/material/Pagination';
 
 
 import { createTheme, ThemeProvider } from '@mui/material';
-// import { RestorePageRounded } from '@mui/icons-material';
 const theme = createTheme({
   typography: {
     fontFamily: [
@@ -49,7 +44,6 @@ const SearchBooks = () => {
     const [bookType, setBookType] = useState('');
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
-    // const [series, setSeries] = useState('')
     const [error, setError] = useState(false)
     const [fetch, setFetch] = useState(false)
     const [bookSearchData, setBookSearchData] = useState([])
@@ -70,10 +64,6 @@ const SearchBooks = () => {
     console.log(('author', author));
   }
 
-//   const handleSeries = (e) => {
-//     e.preventDefault()
-//     setSeries(e.target.value)
-//   }
 
   const handleSubmit = (e) =>{
     e.preventDefault()
@@ -89,21 +79,17 @@ const SearchBooks = () => {
   const fetchBook = async () => {
 
     let authorArr = author.split(" ")
-    // console.log(authorArr);
     let fetchAuthor = authorArr.join("%20")
     console.log(fetchAuthor)
 
     let titleArr = title.split(" ")
     let fetchTitle = titleArr.join("%20")
-    // console.log(fetchTitle);
 
     const options = {
         method: 'GET',
         url: 'https://book-finder1.p.rapidapi.com/api/search',
         params: {
-        //   title: title,
           author: author,
-        //   book_type: bookType,
           lexile_min: '600',
           lexile_max: '800',
           results_per_page: '25',
